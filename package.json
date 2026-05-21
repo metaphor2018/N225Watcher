@@ -1,0 +1,16 @@
+{
+  "name": "n225-watcher",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "N225 Stock Price Watcher",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "yahoo-finance2": "^2.11.3"
+  }
+}

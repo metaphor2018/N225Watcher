@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日経平均株価モニター | N225 Watcher</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="日経平均株価（N225）の最新値、前日比、騰落率、および期間別の株価推移チャートをリアルタイムで美しく表示するダッシュボードです。">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- 背景デコレーション -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <header class="app-header">
+      <div class="logo-area">
+        <i data-lucide="trending-up" class="logo-icon"></i>
+        <div>
+          <h1>N225 WATCHER</h1>
+          <p class="subtitle">日経平均株価 リアルタイムモニター</p>
+        </div>
+      </div>
+      <div class="market-status" id="market-status">
+        <span class="status-dot"></span>
+        <span class="status-text">接続中...</span>
+      </div>
+    </header>
+
+    <main class="dashboard-grid">
+      <!-- 左側：株価サマリーカード -->
+      <section class="summary-section">
+        <div class="glass-card price-card">
+          <div class="card-header">
+            <span class="ticker">NIKKEI 225</span>
+            <span class="index-label">日経平均株価</span>
+          </div>
+          
+          <div class="price-display">
+            <div class="loading-pulse" id="price-loading">
+              <div class="skeleton skeleton-price"></div>
+            </div>
+            <div class="price-value-container hide" id="price-container">
+              <span class="price" id="current-price">0.00</span>
+              <span class="currency">JPY</span>
+            </div>
+          </div>
+
+          <div class="price-change-container hide" id="change-container">
+            <span class="change-badge" id="change-badge">
+              <i data-lucide="arrow-up" class="badge-icon" id="change-icon"></i>
+              <span id="price-change">0.00</span>
+              <span id="price-change-percent">(0.00%)</span>
+            </span>
+          </div>
+          
+          <div class="update-time" id="update-time">
+            更新日時: --:--:--
+          </div>
+        </div>
+
+        <!-- 詳細データカード -->
+        <div class="glass-card details-card">
+          <h3>市場詳細データ</h3>
+          <div class="details-grid">
+            <div class="detail-item">
+              <span class="label">始値 (Open)</span>
+              <span class="value" id="val-open">--</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">前日終値 (Prev Close)</span>
+              <span class="value" id="val-prev-close">--</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">高値 (High)</span>
+              <span class="value text-up" id="val-high">--</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">安値 (Low)</span>
+              <span class="value text-down" id="val-low">--</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="refresh-btn" id="refresh-btn">
+          <i data-lucide="refresh-cw"></i>
+          データを更新
+        </button>
+      </section>
+
+      <!-- 右側：チャートカード -->
+      <section class="chart-section">
+        <div class="glass-card chart-card">
+          <div class="chart-header">
+            <h3>株価推移チャート</h3>
+            <div class="period-selectors" id="period-selectors">
+              <button class="period-btn" data-period="7d">7D</button>
+              <button class="period-btn active" data-period="1m">1M</button>
+              <button class="period-btn" data-period="3m">3M</button>
+              <button class="period-btn" data-period="1y">1Y</button>
+            </div>
+          </div>
+          
+          <div class="chart-container">
+            <div class="loading-overlay" id="chart-loading">
+              <div class="spinner"></div>
+              <span>チャートデータを読み込み中...</span>
+            </div>
+            <canvas id="n225Chart"></canvas>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>© 2026 N225 Watcher. Data provided by Yahoo Finance. Built with premium aesthetics.</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
